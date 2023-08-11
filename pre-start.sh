@@ -3,7 +3,7 @@
 secret=/run/secrets/tangdata
 
 cd /
-while sleep 5; do
+while sleep 2; do
 
   ls -l /db || true
 
