@@ -3,6 +3,9 @@
 <a href='https://hub.docker.com/r/padhihomelab/tang'><img src='https://img.shields.io/docker/image-size/padhihomelab/tang/latest?label=size%20%5Blatest%5D&logo=docker&logoWidth=24&style=for-the-badge'></img></a>
 <a href='https://hub.docker.com/r/padhihomelab/tang'><img src='https://img.shields.io/docker/image-size/padhihomelab/tang/testing?label=size%20%5Btesting%5D&logo=docker&logoWidth=24&style=for-the-badge'></img></a>
 
+**FORKED** from https://github.com/padhi-homelab/docker_tang
+I have removed the Volume configuration and added a small script to allow the tang crypto data to be fed in via a docker secret as a tar file or as a clevis encrypted blob containing the tar file. The idea is to never store the tang crypto on a native filesystem, but to have a mesh of dockerised tang servers seed each other.
+
 A multiarch [tang] Docker image, based on [Alpine Linux].
 
 |        386         |       amd64        |       arm/v6       |       arm/v7       |       arm64        |      ppc64le       |       s390x        |
