@@ -1,8 +1,22 @@
-up:	Dockerfile docker-compose.yaml *sh
-	docker-compose up -d --build
+COMPOSE=$(shell which docker-compose || echo docker compose)
+DT=$(shell date +%Y%m%d-%H%M)
+
+up:	Dockerfile docker-compose.yaml *sh .tangdata
+	$(COMPOSE) up -d --build
 down:
-	docker-compose down
+	$(COMPOSE) down
+recreate re:
+	docker compose up -d --force-recreate
+
 keysig:
-	docker-compose exec tang /usr/local/bin/jose jwk gen -i '{"alg":"ES512"}'
+	@$(COMPOSE) exec tang /usr/local/bin/jose jwk gen -i '{"alg":"ES512"}'
 keyexc:
-	docker-compose exec tang /usr/local/bin/jose jwk gen -i '{"alg":"ECMR"}'
+	@$(COMPOSE) exec tang /usr/local/bin/jose jwk gen -i '{"alg":"ECMR"}'
+keys:
+	@mkdir -p db
+	@make -s keysig > db/sig-$(DT).jwk
+	@make -s keyexc > db/exc-$(DT).jwk
+	tar zcvf db.tgz db
+
+.tangdata: .tangdata
+	touch .tangdata
