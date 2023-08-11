@@ -1,0 +1,29 @@
+version: '2.4'
+
+services:
+  tang:
+    hostname: tang
+
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        buildno: 1
+
+    restart: unless-stopped
+
+    security_opt:
+    - no-new-privileges:true
+
+    environment:
+      DOCKER_UID: 823190
+
+    ports:
+      - "5335:8080"
+
+    secrets:
+      - tangdata
+
+secrets:
+   tangdata:
+     file: .tangdata
