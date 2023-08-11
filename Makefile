@@ -18,5 +18,5 @@ keys:
 	@make -s keyexc > db/exc-$(DT).jwk
 	tar zcvf db.tgz db
 
-.tangdata: .tangdata
+.tangdata:
 	touch .tangdata
