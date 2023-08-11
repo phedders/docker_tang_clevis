@@ -77,13 +77,24 @@ RUN chmod +x /etc/docker-entrypoint.d/99-extra-scripts/*.sh \
 
 
 EXPOSE 8080
-VOLUME [ "/db" ]
+
+#VOLUME [ "/db" ]
 
 
 ENV ENABLE_IPv4=1
 ENV ENABLE_IPv6=0
 
-CMD "start-servers"
+#CMD "start-servers"
+
+RUN echo https://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
+RUN apk add --no-cache --update clevis clevis-bash-completion clevis-extra-pins
+
+COPY pre-start.sh \
+     /usr/local/bin/pre-start
+
+RUN chmod +x /usr/local/bin/pre-start
+
+CMD "pre-start"
 
 
 HEALTHCHECK --start-period=5s --timeout=3s \
