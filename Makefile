@@ -1,4 +1,4 @@
-COMPOSE=$(shell which docker-compose || echo docker compose)
+COMPOSE=$(shell docker compose >/dev/null 2>&1 && echo docker compose || echo docker-compose)
 DT=$(shell date +%Y%m%d-%H%M)
 
 up:	Dockerfile docker-compose.yaml *sh .tangdata
